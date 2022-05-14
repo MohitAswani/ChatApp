@@ -4,15 +4,26 @@ const UserOTPVerification = require('../models/UserOTPVerification');
 
 const bcrypt = require('bcryptjs');
 
-const jwt = require('jsonwebtoken');
-
 const otpGenerator = require('otp-generator');
 
 const nodemailer = require('nodemailer');
 
+const transporter = nodemailer.createTransport({
+    host: "smtp-mail.outlook.com",
+    secureConnection: false,
+    port: 587,
+    tls: {
+        ciphers: 'SSLv3'
+    },
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+    }
+});
+
 exports.getNone = (req, res, next) => {
-    if (this.isAuth) {
-        res.redirect('/home');
+    if (req.session.isAuth) {
+        res.redirect('/chats');
     } else {
         res.redirect('/login');
     }
@@ -23,10 +34,10 @@ exports.getLogin = (req, res, next) => {
         pageTitle: 'Login',
         username: '',
         password: '',
-        warningSignIn: '',
-        infoSignIn: '',
-        warningSignUp: '',
-        containerClass: ''
+        warningSignIn: req.flash('warningSignIn'),
+        infoSignIn: req.flash('infoSignIn'),
+        warningSignUp: req.flash('warningSignUp'),
+        containerClass: req.flash('containerClass')
     });
 };
 
@@ -166,12 +177,9 @@ exports.postSignInUser = (req, res, next) => {
                             });
                         } else {
                             if (result) {
-                                const token = docs.generateAuthToken();
-                                res.cookie("jwt", token, {
-                                    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-                                    httponly: true
-                                });
-                                res.redirect('/home');
+                                req.session.isAuth = true;
+                                req.session.user = docs;
+                                return res.redirect('/');
                             } else {
                                 res.render('auth/login', {
                                     pageTitle: 'Login',
@@ -396,34 +404,14 @@ exports.postDetails = (req, res, next) => {
     }
 };
 
-exports.isAuth = (req, res, next) => {
-    try {
-        const token = req.cookies.jwt;
-
-        const verifyUser = jwt.verify(token, process.env.SECRET_KEY);
-
-        next();
-    } catch (error) {
-        res.redirect('/login');
-    }
-}
-
 exports.postLogOut = (req, res, next) => {
-    try {
-        res.clearCookie('jwt');
-        res.redirect('/login');
-    } catch (error) {
-        res.redirect('/login');
-    }
+    req.session.destroy((err) => {
+        if (err) {
+            console.log(err);
+        }
+        res.redirect('/');
+    });
 };
-
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
-    }
-});
 
 exports.getForgotPassword = (req, res, next) => {
     res.render('auth/forgotpassword', {
@@ -551,7 +539,7 @@ exports.postResetPassword = (req, res, next) => {
     let password = req.body.password;
     let email = req.body.email;
     let confirm_password = req.body.confirm_password;
-    
+
     password = password.trim();
     email = email.trim();
     confirm_password = confirm_password.trim();
@@ -676,9 +664,9 @@ const sendOTPVerificationEmail = (email, res, cb) => {
                     if (err) {
                         console.log(err);
                     } else {
-                        transporter.sendMail(mailOptions, () => {
+                        cb();
+                        return transporter.sendMail(mailOptions, () => {
                             console.log("Email sent!");
-                            cb();
                         });
                     }
 

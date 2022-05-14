@@ -4,7 +4,7 @@
     </head>
 
     <body>
-        <div class="container <%= containerClass %>">
+        <div class="container <% if(containerClass.length>0) {%> <%= containerClass %> <% } %> ">
             <div class="forms-container">
                 <div class="signin-signup">
                     <form action="/sign-in" class="sign-in-form" method="post">
@@ -22,16 +22,20 @@
 
                         <a href="/forgotpassword">Forgot Password?</a>
 
+                        <% if(warningSignIn.length>0){ %> 
                         <div class="warning">
                             <p>
                                 <%=warningSignIn%>
                             </p>
                         </div>
+                        <% } %> 
+                        <% if(infoSignIn.length>0){ %> 
                         <div class="info">
                             <p>
                                 <%=infoSignIn%>
                             </p>
                         </div>
+                        <% } %> 
 
                         <input type="submit" value="Login" class="btn btn-primary">
 
@@ -43,11 +47,13 @@
                             <i class="uil uil-at"></i>
                             <input type="text" name="email" id="email" placeholder="Email">
                         </div>
+                        <% if(warningSignUp.length>0) { %> 
                         <div class="warning">
                             <p>
                                 <%=warningSignUp%>
                             </p>
                         </div>
+                        <% } %> 
                         
                         <input type="submit" value="Sign up" class="btn btn-primary">
 

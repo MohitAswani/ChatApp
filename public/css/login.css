@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
+@font-face {
+  font-family: Cyber;
+  src: url("https://assets.codepen.io/605876/Blender-Pro-Bold.otf");
+  font-display: swap;
+}
+
 :root {
   /*Here we are declaring a variable color-dark to which we assign hsl which is Hue saturation and lightness */
   --color-white: hsl(252, 30%, 100%);
@@ -32,11 +38,12 @@
   text-decoration: none;
   list-style: none;
   border: none;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: 300;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Cyber', sans-serif;
   color: var(--color-dark);
   overflow-x: hidden;
 }

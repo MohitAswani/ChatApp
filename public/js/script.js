@@ -1,31 +1,28 @@
-document.querySelector('.chat[data-chat=person2]').classList.add('active-chat');
-document.querySelector('.person[data-chat=person2]').classList.add('active');
+const toggleButton = document.querySelector('.dark-light');
+const colors = document.querySelectorAll('.color');
+const recentConvos = document.querySelectorAll('.msg');
+const chatAreaTitle = document.querySelector('.chat-area-title');
+const chatAreaProfile = document.querySelector('.chat-area-profile');
 
-let friends = {
-  list: document.querySelector('ul.people'),
-  all: document.querySelectorAll('.left .person'),
-  name: '' },
-
-chat = {
-  container: document.querySelector('.container .right'),
-  current: null,
-  person: null,
-  name: document.querySelector('.container .right .top .name') };
-
-
-friends.all.forEach(f => {
-  f.addEventListener('mousedown', () => {
-    f.classList.contains('active') || setAciveChat(f);
+colors.forEach(color => {
+  color.addEventListener('click', e => {
+    colors.forEach(c => c.classList.remove('selected'));
+    const theme = color.getAttribute('data-color');
+    document.body.setAttribute('data-theme', theme);
+    color.classList.add('selected');
   });
 });
 
-function setAciveChat(f) {
-  friends.list.querySelector('.active').classList.remove('active');
-  f.classList.add('active');
-  chat.current = chat.container.querySelector('.active-chat');
-  chat.person = f.getAttribute('data-chat');
-  chat.current.classList.remove('active-chat');
-  chat.container.querySelector('[data-chat="' + chat.person + '"]').classList.add('active-chat');
-  friends.name = f.querySelector('.name').innerText;
-  chat.name.innerHTML = friends.name;
-}
+recentConvos.forEach(convo => {
+  convo.addEventListener('click', e => {
+    recentConvos.forEach(c => c.classList.remove('active'));
+    convo.classList.add('active');
+    chatAreaTitle.innerHTML = convo.querySelector('.msg-username').innerHTML;
+    chatAreaProfile.setAttribute('src', convo.querySelector('.msg-profile').getAttribute('src'));
+  });
+});
+
+toggleButton.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+

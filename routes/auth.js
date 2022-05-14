@@ -6,6 +6,8 @@ const Upload = require('../util/Upload');
 
 const authController = require('../controllers/auth');
 
+const isAuth=require('../middleware/is-auth');
+
 const router=express.Router();
 
 router.get('/',authController.getNone);
@@ -22,7 +24,7 @@ router.post('/resendotp',authController.postResendOTP);
 
 router.post('/details',Upload.upload.single('file'),authController.postDetails);
 
-router.post('/logout',authController.isAuth,authController.postLogOut);
+router.post('/logout',isAuth,authController.postLogOut);
 
 router.get('/forgotpassword',authController.getForgotPassword);
 

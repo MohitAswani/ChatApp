@@ -1,7 +1,5 @@
-const res = require('express/lib/response');
 const { default: mongoose } = require('mongoose');
 const { model, Schema } = require('mongoose');
-const jwt=require('jsonwebtoken');
 
 const UserSchema = new Schema({
     username: {
@@ -18,40 +16,21 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-    profilePic:{
-        type:String
+    profilePic: {
+        type: String
     },
-    friends: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+    convos: [{
+        userId:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+        },
+        messageId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'DirectMessage',
+            required: true
+        }
     }],
-    posts: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'Post'
-    }],
-    booksmarks: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'Post'
-    }],
-    notifications: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Notification'
-    }],
-    isAdmin:{
-        type:Boolean
-    }
 });
 
-
-UserSchema.methods.generateAuthToken=function(cb){
-    try{
-        const token=jwt.sign({_id:this._id.toString()},
-        process.env.SECRET_KEY);
-        return token;
-    } catch(error){
-        res.status(404).send(error);
-        console.log(error);
-    }
-};
-
-module.exports = model('User', UserSchema);
+module.exports = mongoose.models.User || model('User', UserSchema);

@@ -1,4 +1,4 @@
-const { model, Schema } = require('mongoose');
+const { model, Schema, default: mongoose } = require('mongoose');
 
 const UserOTPVerificationSchema=new Schema({
     email:{
@@ -19,5 +19,5 @@ const UserOTPVerificationSchema=new Schema({
     }
 });
 
-module.exports = model('UserOTPVerification', UserOTPVerificationSchema);
+module.exports = mongoose.models.UserOTPVerification||model('UserOTPVerification', UserOTPVerificationSchema);
 

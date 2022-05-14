@@ -6,6 +6,8 @@ const router = express.Router();
 
 const chatController = require('../controllers/chat');
 
-router.get('/',chatController.getIndex);
+const isAuth=require('../middleware/is-auth');
+
+router.get('/chats',isAuth,chatController.getChats);
 
 module.exports=router;
