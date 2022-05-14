@@ -1,0 +1,85 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <link rel="stylesheet" href="./css/login.css">
+    </head>
+
+    <body>
+        <div class="container <%= containerClass %>">
+            <div class="forms-container">
+                <div class="signin-signup">
+                    <form action="/sign-in" class="sign-in-form" method="post">
+                        <h2 class="title">Sign In</h2>
+                        <div class="input-field">
+                            <i class="uil uil-user"></i>
+                            <input type="text" name="username" id="username" placeholder="Username"
+                                value="<%= username %>">
+                        </div>
+                        <div class="input-field">
+                            <i class="uil uil-lock"></i>
+                            <input type="password" name="password" id="password" placeholder="Password"
+                                value="<%= password %>">
+                        </div>
+
+                        <a href="/forgotpassword">Forgot Password?</a>
+
+                        <div class="warning">
+                            <p>
+                                <%=warningSignIn%>
+                            </p>
+                        </div>
+                        <div class="info">
+                            <p>
+                                <%=infoSignIn%>
+                            </p>
+                        </div>
+
+                        <input type="submit" value="Login" class="btn btn-primary">
+
+                    </form>
+
+                    <form action='/register-user' class="sign-up-form" method="post">
+                        <h2 class="title">Sign Up</h2>
+                        <div class="input-field">
+                            <i class="uil uil-at"></i>
+                            <input type="text" name="email" id="email" placeholder="Email">
+                        </div>
+                        <div class="warning">
+                            <p>
+                                <%=warningSignUp%>
+                            </p>
+                        </div>
+                        
+                        <input type="submit" value="Sign up" class="btn btn-primary">
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="panels-container">
+                <div class="panel left-panel">
+                    <div class="content">
+                        <h3>New here?</h3>
+                        <p>Sign up with us and be a part of the community !!!</p>
+                        <button class="btn transparent" id="sign-up-btn">Sign up</button>
+                    </div>
+
+                    <img src="./images/login_page_image.svg" class="image" alt="">
+                </div>
+
+                <div class="panel right-panel">
+                    <div class="content">
+                        <h3>One of us?</h3>
+                        <p>Sign in using your existing username by clicking the button.</p>
+                        <button class="btn transparent" id="sign-in-btn">Sign in</button>
+                    </div>
+
+                    <img src="./images/login_page_image_2.svg" class="image" alt="">
+                </div>
+            </div>
+
+        </div>
+
+        <script src="./js/login.js"></script>
+    </body>
+
+    </html>

@@ -1,0 +1,60 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <link rel="stylesheet" href="./css/register.css">
+    </head>
+
+    <body>
+        <form class="container" enctype="multipart/form-data" id="register-form" action="details" method="post">
+            <input type="hidden" name="email" id="email" value="<%=email%>">
+            <span class="big-circle"></span>
+            <h2 class="title">Enter your details</h2>
+            <div class="wrapper">
+                <div class="image">
+                    <img src="" alt="">
+                </div>
+                <div class="content">
+                    <div class="icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="text">
+                        Profile pic!
+                    </div>
+                </div>
+                <div id="cancel-btn">
+                    <i class="fas fa-times"></i>
+                </div>
+                <div class="file-name">
+                    File name here
+                </div>
+            </div>
+            <button type="button" onclick="defaultBtnActive()" id="custom-btn">Choose a file</button>
+            <input id="default-btn" type="file" id="file" name="file" hidden>
+            <div class="input-field">
+                <i class="uil uil-user"></i>
+                <input type="text" name="username" id="username" placeholder="Username">
+            </div>
+            <div class="input-field">
+                <i class="uil uil-lock"></i>
+                <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+            <div class="input-field">
+                <i class="uil uil-lock"></i>
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+            </div>
+            <div style="margin-top: 2px;">
+                <input type="checkbox" onclick="myFunction()" style="font-size:12px;">
+                <p style="display: inline-block;margin: 2px;opacity: 0.5;">Show password</p>
+            </div>
+            <div class="warning">
+                <p>
+                    <%= warning  %> 
+                </p>
+            </div>
+
+            <input type="submit" value="Sign up" class="btn btn-primary">
+        </form>
+
+        <script src="./js/register.js"></script>
+    </body>
+
+    </html>

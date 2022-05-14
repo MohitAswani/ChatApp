@@ -1,4 +1,12 @@
 @charset "UTF-8";
+
+@font-face {
+  font-family: Cyber;
+  src: url("https://assets.codepen.io/605876/Blender-Pro-Bold.otf");
+  font-display: swap;
+}
+
+
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -19,7 +27,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Cyber", sans-serif;
   font-weight: 400;
   background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/image.jpg");
   background-size: cover;
