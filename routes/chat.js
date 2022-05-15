@@ -10,4 +10,6 @@ const isAuth=require('../middleware/is-auth');
 
 router.get('/chats',isAuth,chatController.getChats);
 
+router.get('/searchuser',isAuth,chatController.searchUser);
+
 module.exports=router;

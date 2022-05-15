@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Chats</title>
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<%- include('../includes/head.ejs') %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link rel="stylesheet" href="../css/style.css">
 
 </head>
 
 <body>
-    <div class="app">
+    <%- include('../includes/start-convo-modal.ejs') %>
+    <div class="app app-details-modal-close">
         <div class="header">
             <div class="logo">
                 <svg viewBox="0 0 513 513" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -176,7 +169,8 @@
                         </div>
                     </div>
                 </div>
-                <button class="add"></button>
+                <button class="add" id="chat-add-btn">
+                </button>
                 <div class="overlay"></div>
             </div>
             <div class="chat-area">
@@ -447,6 +441,4 @@
 
     <script src="../js/script.js"></script>
 
-</body>
-
-</html>
+<%- include('../includes/end.ejs') %>
